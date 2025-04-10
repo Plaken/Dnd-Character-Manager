@@ -1,0 +1,25 @@
+{% extends "chargen/base.html" %}
+
+{% block title %}{{ character.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ character.name }}</h1>
+    <p><strong>Race:</strong> {{ character.race|default:"N/A" }}</p>
+    <p><strong>Class:</strong> {{ character.character_class|default:"N/A" }}</p>
+    <p><strong>Level:</strong> {{ character.level }}</p>
+
+    <h2>Ability Scores</h2>
+    <ul>
+        <li>Strength: {{ character.strength }}</li>
+        <li>Dexterity: {{ character.dexterity }}</li>
+        <li>Constitution: {{ character.constitution }}</li>
+        <li>Intelligence: {{ character.intelligence }}</li>
+        <li>Wisdom: {{ character.wisdom }}</li>
+        <li>Charisma: {{ character.charisma }}</li>
+    </ul>
+
+    <p><small>Created: {{ character.created_at }} | Updated: {{ character.updated_at }}</small></p>
+
+    <a href="{% url 'character_list' %}">Back to List</a>
+    {# Add links for Edit/Delete later #}
+{% endblock %}

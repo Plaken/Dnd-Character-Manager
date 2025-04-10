@@ -1,0 +1,13 @@
+<form method="POST" action="{% url 'delete_character' character.id %}" onsubmit="return confirmDelete();">
+  {% csrf_token %}
+  <button type="submit">🗑 Delete</button>
+</form>
+
+<script>
+function confirmDelete() {
+    const firstConfirm = confirm("Are you sure you want to delete this character?");
+    if (!firstConfirm) return false;
+
+    return confirm("This cannot be undone. Delete character?");
+}
+</script>

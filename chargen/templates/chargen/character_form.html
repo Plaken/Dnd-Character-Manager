@@ -1,0 +1,43 @@
+{% extends "chargen/base.html" %}
+{% load form_tags %}  {# You already have this, assuming it's needed for `get_item` #}
+
+{% block title %}{{ page_title|default:"Character Form" }}{% endblock %}
+
+{% block content %}
+  <h1>{{ page_title|default:"Character Form" }}</h1>
+
+  <form method="POST">
+    {% csrf_token %}
+
+    {# Render default form fields #}
+    {{ form.non_field_errors }}
+    <div>
+      {{ form.name.label_tag }} {{ form.name }}
+    </div>
+    <div>
+      {{ form.level.label_tag }} {{ form.level }}
+    </div>
+    <div>
+      {{ form.race.label_tag }} {{ form.race }}
+    </div>
+    <div>
+      {{ form.character_class.label_tag }} {{ form.character_class }}
+    </div>
+
+    {# Render ability score assignment fields dynamically #}
+    <h3>Ability Scores</h3>
+    <div class="abilities">
+      {% for ability in ability_scores %}
+        {% with field=form|get_item:ability|add:"_assignment" %}
+          <div>
+            <label for="{{ field.id_for_label }}">{{ ability|capfirst }}:</label>
+            {{ field }}
+            {{ field.errors }}
+          </div>
+        {% endwith %}
+      {% endfor %}
+    </div>
+
+    <button type="submit" style="margin-top: 1rem;">Save Character</button>
+  </form>
+{% endblock %}
